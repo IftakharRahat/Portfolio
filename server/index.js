@@ -12,8 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
-const JWT_SECRET = 'portfolio-secret-key-2024';
+const PORT = process.env.PORT || 3001;
+const JWT_SECRET = process.env.JWT_SECRET || 'portfolio-secret-key-2024';
 
 // Middleware
 app.use(cors());
@@ -133,7 +133,7 @@ const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.sendStatus(401);
-  
+
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
@@ -145,11 +145,11 @@ const authenticateToken = (req, res, next) => {
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body;
   const admin = db.prepare('SELECT * FROM admin WHERE username = ?').get(username);
-  
+
   if (!admin || !bcrypt.compareSync(password, admin.password)) {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
-  
+
   const token = jwt.sign({ id: admin.id, username: admin.username }, JWT_SECRET, { expiresIn: '24h' });
   res.json({ token, username: admin.username });
 });
@@ -166,29 +166,29 @@ app.get('/api/experience', (req, res) => {
 app.post('/api/experience', authenticateToken, upload.single('logo'), (req, res) => {
   const { title, company, location, start_date, end_date, description } = req.body;
   const logo = req.file ? `/uploads/${req.file.filename}` : null;
-  
+
   const result = db.prepare(
     'INSERT INTO experience (logo, title, company, location, start_date, end_date, description) VALUES (?, ?, ?, ?, ?, ?, ?)'
   ).run(logo, title, company, location, start_date, end_date, description);
-  
+
   res.json({ id: result.lastInsertRowid, message: 'Experience added successfully' });
 });
 
 app.put('/api/experience/:id', authenticateToken, upload.single('logo'), (req, res) => {
   const { id } = req.params;
   const { title, company, location, start_date, end_date, description } = req.body;
-  
+
   let query = 'UPDATE experience SET title = ?, company = ?, location = ?, start_date = ?, end_date = ?, description = ?';
   let params = [title, company, location, start_date, end_date, description];
-  
+
   if (req.file) {
     query += ', logo = ?';
     params.push(`/uploads/${req.file.filename}`);
   }
-  
+
   query += ' WHERE id = ?';
   params.push(id);
-  
+
   db.prepare(query).run(...params);
   res.json({ message: 'Experience updated successfully' });
 });
@@ -207,29 +207,29 @@ app.get('/api/education', (req, res) => {
 app.post('/api/education', authenticateToken, upload.single('logo'), (req, res) => {
   const { degree, institution, location, year } = req.body;
   const logo = req.file ? `/uploads/${req.file.filename}` : null;
-  
+
   const result = db.prepare(
     'INSERT INTO education (logo, degree, institution, location, year) VALUES (?, ?, ?, ?, ?)'
   ).run(logo, degree, institution, location, year);
-  
+
   res.json({ id: result.lastInsertRowid, message: 'Education added successfully' });
 });
 
 app.put('/api/education/:id', authenticateToken, upload.single('logo'), (req, res) => {
   const { id } = req.params;
   const { degree, institution, location, year } = req.body;
-  
+
   let query = 'UPDATE education SET degree = ?, institution = ?, location = ?, year = ?';
   let params = [degree, institution, location, year];
-  
+
   if (req.file) {
     query += ', logo = ?';
     params.push(`/uploads/${req.file.filename}`);
   }
-  
+
   query += ' WHERE id = ?';
   params.push(id);
-  
+
   db.prepare(query).run(...params);
   res.json({ message: 'Education updated successfully' });
 });
@@ -248,29 +248,29 @@ app.get('/api/projects', (req, res) => {
 app.post('/api/projects', authenticateToken, upload.single('image'), (req, res) => {
   const { title, description, link } = req.body;
   const image = req.file ? `/uploads/${req.file.filename}` : null;
-  
+
   const result = db.prepare(
     'INSERT INTO projects (image, title, description, link) VALUES (?, ?, ?, ?)'
   ).run(image, title, description, link);
-  
+
   res.json({ id: result.lastInsertRowid, message: 'Project added successfully' });
 });
 
 app.put('/api/projects/:id', authenticateToken, upload.single('image'), (req, res) => {
   const { id } = req.params;
   const { title, description, link } = req.body;
-  
+
   let query = 'UPDATE projects SET title = ?, description = ?, link = ?';
   let params = [title, description, link];
-  
+
   if (req.file) {
     query += ', image = ?';
     params.push(`/uploads/${req.file.filename}`);
   }
-  
+
   query += ' WHERE id = ?';
   params.push(id);
-  
+
   db.prepare(query).run(...params);
   res.json({ message: 'Project updated successfully' });
 });
