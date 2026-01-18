@@ -149,12 +149,12 @@ const projectsCount = db.prepare('SELECT COUNT(*) as count FROM projects').get()
 if (projectsCount.count === 0) {
   const insertProj = db.prepare(`INSERT INTO projects (image, title, description, link) VALUES (?, ?, ?, ?)`);
 
-  insertProj.run('/uploads/1768655178084-937548840.jpeg', 'Zenova ac', '', 'https://play.google.com/store/apps/details?id=com.mtl.conveyance');
-  insertProj.run('/uploads/1768655270234-728393509.jpeg', 'NFL Game', '', 'https://apps.apple.com/us/app/full-send-sports-ai/id6751740118');
-  insertProj.run('/uploads/1768655449198-231454187.jpg', 'School Management Software', '', 'https://school-management-web-khaki.vercel.app/');
-  insertProj.run('/uploads/1768655689342-683593534.jpg', 'Bikalpo Multivendor', '', 'https://bikalpo.com/');
-  insertProj.run('/uploads/1768656394434-72439495.png', 'Real Estate', '', 'https://rockdalepropertiesltd.com/');
-  insertProj.run('/uploads/1768656581837-585996648.jpg', 'Research Publication', '', 'https://paper-trail-ui.vercel.app/');
+  insertProj.run('/uploads/1768655178084-937548840.jpeg', 'Zenova ac', 'A comprehensive AC management mobile application for controlling and monitoring air conditioning units remotely.', 'https://play.google.com/store/apps/details?id=com.mtl.conveyance');
+  insertProj.run('/uploads/1768655270234-728393509.jpeg', 'NFL Game', 'An AI-powered sports prediction and analysis app for NFL enthusiasts, featuring real-time stats and insights.', 'https://apps.apple.com/us/app/full-send-sports-ai/id6751740118');
+  insertProj.run('/uploads/1768655449198-231454187.jpg', 'School Management Software', 'A full-featured school management system including student records, attendance, grading, and administrative tools.', 'https://school-management-web-khaki.vercel.app/');
+  insertProj.run('/uploads/1768655689342-683593534.jpg', 'Bikalpo Multivendor', 'A scalable multi-vendor e-commerce platform with vendor dashboards, product management, and secure payment processing.', 'https://bikalpo.com/');
+  insertProj.run('/uploads/1768656394434-72439495.png', 'Real Estate', 'A modern real estate property listing website with search filtering, property details, and contact integration.', 'https://rockdalepropertiesltd.com/');
+  insertProj.run('/uploads/1768656581837-585996648.jpg', 'Research Publication', 'A platform for showcasing and managing research publications, featuring citation tracking and document viewing.', 'https://paper-trail-ui.vercel.app/');
 }
 
 // Auth Middleware
