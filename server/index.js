@@ -39,7 +39,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Initialize SQLite Database
-const db = new Database(path.join(__dirname, 'database.sqlite'));
+const dbDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+const db = new Database(path.join(dbDir, 'database.sqlite'));
 
 // Create tables
 db.exec(`
@@ -82,10 +86,18 @@ db.exec(`
 `);
 
 // Create default admin user if not exists
-const adminExists = db.prepare('SELECT * FROM admin WHERE username = ?').get('admin');
-if (!adminExists) {
-  const hashedPassword = bcrypt.hashSync('admin123', 10);
-  db.prepare('INSERT INTO admin (username, password) VALUES (?, ?)').run('admin', hashedPassword);
+try {
+  const adminExists = db.prepare('SELECT * FROM admin WHERE username = ?').get('admin');
+  if (!adminExists) {
+    console.log('Creating default admin user...');
+    const hashedPassword = bcrypt.hashSync('admin123', 10);
+    db.prepare('INSERT INTO admin (username, password) VALUES (?, ?)').run('admin', hashedPassword);
+    console.log('Default admin user created: admin / admin123');
+  } else {
+    console.log('Admin user already exists');
+  }
+} catch (error) {
+  console.error('Error creating admin user:', error);
 }
 
 // Seed initial data
