@@ -156,6 +156,7 @@ if (projectsCount.count === 0) {
   insertProj.run('/uploads/1768656394434-72439495.png', 'Real Estate', 'A modern real estate property listing website with search filtering, property details, and contact integration.', 'https://rockdalepropertiesltd.com/');
   insertProj.run('/uploads/1768656581837-585996648.jpg', 'Research Publication', 'A platform for showcasing and managing research publications, featuring citation tracking and document viewing.', 'https://paper-trail-ui.vercel.app/');
   insertProj.run('/uploads/akproxy.png', 'AKPROXY BOT', 'A Telegram-based proxy sharing platform built on VPS using 3 proxies and novproxy protocol.', 'https://t.me/AKPROXY_BOT');
+  insertProj.run('/uploads/mavencave.png', 'Mavencave', 'AI-powered study abroad assistant providing admission eligibility checks and college application guidance.', 'http://mavencave.com/');
 }
 
 // Auth Middleware
