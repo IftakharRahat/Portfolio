@@ -5,8 +5,8 @@ node_modules/
 *.sqlite
 
 # Uploads (user content)
-server/uploads/*
-!server/uploads/.gitkeep
+# server/uploads/*
+# !server/uploads/.gitkeep
 
 # Environment files
 .env

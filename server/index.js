@@ -101,23 +101,29 @@ try {
 }
 
 // Seed initial data
+// Seed initial data
 const experienceCount = db.prepare('SELECT COUNT(*) as count FROM experience').get();
 if (experienceCount.count === 0) {
-  db.prepare(`INSERT INTO experience (title, company, location, start_date, end_date, description) VALUES (?, ?, ?, ?, ?, ?)`).run(
+  const insertExp = db.prepare(`INSERT INTO experience (logo, title, company, location, start_date, end_date, description) VALUES (?, ?, ?, ?, ?, ?, ?)`);
+
+  insertExp.run(
+    '/uploads/1768654704136-843528075.jpg',
     'Full Stack Software Developer',
     'AlgoVerse',
     'Dhaka, Bangladesh',
     'Oct 2023',
     'Present',
     JSON.stringify([
-      'Developed and deployed robust full-stack applications using React, ASP.NET, C#, and Node.js',
+      'Developed and deployed robust full-stack applications using React,Next.js ASP.NET, C#, and Node.js',
       'Architected containerized applications using Docker',
       'Integrated AI APIs into core features',
       'Implemented real-time communication using Socket.io',
-      'Developed cross-platform mobile applications using Flutter'
+      'Developed cross-platform mobile applications using Flutter and React Native'
     ])
   );
-  db.prepare(`INSERT INTO experience (title, company, location, start_date, end_date, description) VALUES (?, ?, ?, ?, ?, ?)`).run(
+
+  insertExp.run(
+    '/uploads/1768654639780-579034656.jpg',
     'Senior Software Engineer',
     'Zentorra',
     'Dhaka, Bangladesh',
@@ -132,12 +138,23 @@ if (experienceCount.count === 0) {
 
 const educationCount = db.prepare('SELECT COUNT(*) as count FROM education').get();
 if (educationCount.count === 0) {
-  db.prepare(`INSERT INTO education (degree, institution, location, year) VALUES (?, ?, ?, ?)`).run(
-    'Bachelor of Science in Computer Science',
-    'BRAC University',
-    'Dhaka',
-    '2023'
-  );
+  const insertEdu = db.prepare(`INSERT INTO education (logo, degree, institution, location, year) VALUES (?, ?, ?, ?, ?)`);
+
+  insertEdu.run('/uploads/1768631203930-413340657.png', 'Bachelor of Science in Computer Science', 'BRAC University', 'Dhaka', '2022');
+  insertEdu.run('/uploads/1768631283787-198298737.png', 'College', 'BAF SHAHEEN COLLEGE', 'Dhaka', '2018');
+  insertEdu.run('/uploads/1768631436933-98260672.jpg', 'School', 'Cambrian School', 'Dhaka', '2012-2018');
+}
+
+const projectsCount = db.prepare('SELECT COUNT(*) as count FROM projects').get();
+if (projectsCount.count === 0) {
+  const insertProj = db.prepare(`INSERT INTO projects (image, title, description, link) VALUES (?, ?, ?, ?)`);
+
+  insertProj.run('/uploads/1768655178084-937548840.jpeg', 'Zenova ac', '', 'https://play.google.com/store/apps/details?id=com.mtl.conveyance');
+  insertProj.run('/uploads/1768655270234-728393509.jpeg', 'NFL Game', '', 'https://apps.apple.com/us/app/full-send-sports-ai/id6751740118');
+  insertProj.run('/uploads/1768655449198-231454187.jpg', 'School Management Software', '', 'https://school-management-web-khaki.vercel.app/');
+  insertProj.run('/uploads/1768655689342-683593534.jpg', 'Bikalpo Multivendor', '', 'https://bikalpo.com/');
+  insertProj.run('/uploads/1768656394434-72439495.png', 'Real Estate', '', 'https://rockdalepropertiesltd.com/');
+  insertProj.run('/uploads/1768656581837-585996648.jpg', 'Research Publication', '', 'https://paper-trail-ui.vercel.app/');
 }
 
 // Auth Middleware
