@@ -9,7 +9,7 @@ function Home() {
 
     useEffect(() => {
         // Load saved theme or default to light
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme_preference') || 'light';
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);
@@ -22,7 +22,7 @@ function Home() {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        localStorage.setItem('theme_preference', newTheme);
     };
 
     const loadData = async () => {
