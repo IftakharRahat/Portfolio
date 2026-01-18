@@ -58,12 +58,11 @@ function Home() {
                             <button className="btn" onClick={() => navigator.clipboard.writeText('iftakharrahat71@gmail.com')}>
                                 📋 Copy
                             </button>
-                            <a href="/resume.pdf" className="btn">📄 CV</a>
                         </div>
                     </div>
                     <div className="social-links">
                         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://github.com/IftakharRahat" target="_blank" rel="noopener noreferrer">GitHub</a>
                         <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
                             {theme === 'dark' ? '☀️' : '🌙'}
                         </button>
