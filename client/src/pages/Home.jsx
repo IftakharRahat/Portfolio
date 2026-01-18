@@ -5,11 +5,11 @@ function Home() {
     const [experiences, setExperiences] = useState([]);
     const [education, setEducation] = useState([]);
     const [projects, setProjects] = useState([]);
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState('light');
 
     useEffect(() => {
-        // Load saved theme or default to dark
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        // Load saved theme or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);

@@ -28,7 +28,8 @@
 }
 
 /* Auto dark mode based on system preference */
-@media (prefers-color-scheme: dark) {
+/* Auto dark mode based on system preference - DISABLED to enforce default light */
+/* @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: #0a0a0a;
     --color-bg-alt: #141414;
@@ -40,21 +41,26 @@
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
   }
-}
+} */
 
 /* Theme toggle button */
 .theme-toggle {
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  padding: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
+  border-radius: 50%;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
 }
 
 .theme-toggle:hover {
-  background: var(--color-border);
+  background: var(--color-bg-alt);
+  transform: rotate(15deg);
 }
 
 * {
