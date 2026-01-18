@@ -41,7 +41,7 @@ function Home() {
     };
 
     const skills = [
-        { icon: '🎨', title: 'UX & UI', desc: 'Designing interfaces that are intuitive, efficient, and enjoyable to use.' },
+        { icon: '🤖', title: 'Automation', desc: 'Streamlining flows and creating efficient automated systems for business growth.' },
         { icon: '📱', title: 'Web & Mobile App', desc: 'Transforming ideas into exceptional web and mobile app experiences.' },
         { icon: '✨', title: 'Design & Creative', desc: 'Bringing your vision to life with the latest technology and trends.' },
         { icon: '💻', title: 'Development', desc: 'Building robust, scalable solutions with modern frameworks.' }
